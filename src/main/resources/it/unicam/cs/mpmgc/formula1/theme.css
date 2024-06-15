@@ -1,0 +1,97 @@
+/* Base styles for the root pane */
+.root {
+    -fx-background-color: #121212;
+    -fx-text-fill: #e0e0e0;
+}
+
+/* Heading label styles */
+.heading {
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "AppleSystemUIFont";
+}
+
+/* General label styles */
+.label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #bbbbbb;
+}
+
+.primary-button {
+    -fx-background-color: #1e88e5; /* Blue */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-font-family: "AppleSystemUIFont";
+}
+
+.primary-button:hover {
+    -fx-background-color: #1565c0; /* Darker Blue on hover */
+}
+
+.secondary-button {
+    -fx-background-color: #757575; /* Grey */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-font-family: "AppleSystemUIFont";
+}
+
+.secondary-button:hover {
+    -fx-background-color: #616161; /* Darker Grey on hover */
+}
+
+.destructive-button {
+    -fx-background-color: #d32f2f; /* Red */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-font-family: "AppleSystemUIFont";
+}
+
+.destructive-button:hover {
+    -fx-background-color: #b71c1c; /* Darker Red on hover */
+}
+
+/* MenuBar styles */
+.menu-bar {
+    -fx-background-color: #2e2e2e;
+    -fx-padding: 10px;
+    -fx-font-family: "AppleSystemUIFont";
+}
+
+.menu-bar .label {
+    -fx-text-fill: #e0e0e0;
+}
+
+.menu-item {
+    -fx-font-size: 14px;
+    -fx-text-fill: #e0e0e0;
+}
+
+/* Input field styles */
+.input {
+    -fx-background-color: #2e2e2e;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-padding: 10px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-prompt-text-fill: #888888;
+}
+
+.game-view {
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-background-color: #4a4a4a;
+    -fx-padding: 10px;
+    -fx-pref-width: 800;
+    -fx-pref-height: 600
+}

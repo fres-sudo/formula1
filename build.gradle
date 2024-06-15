@@ -10,6 +10,7 @@ group 'it.unicam.cs.mpmgc.formula1'
 version '1.0-SNAPSHOT'
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -20,13 +21,13 @@ ext {
 sourceCompatibility = '21'
 targetCompatibility = '21'
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
 application {
-    mainModule = 'it.unicam.cs.mpmgc.formula1.formula1'
-    mainClass = 'it.unicam.cs.mpmgc.formula1.formula1.HelloApplication'
+    mainModule = 'it.unicam.cs.mpmgc.formula1'
+    mainClass = 'it.unicam.cs.mpmgc.formula1.MainApp'
 }
 
 javafx {
@@ -35,6 +36,7 @@ javafx {
 }
 
 dependencies {
+    implementation group: 'org.json', name: 'json', version: '20240303'
     implementation('org.controlsfx:controlsfx:11.1.2')
     implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
     implementation('eu.hansolo:tilesfx:11.48') {
