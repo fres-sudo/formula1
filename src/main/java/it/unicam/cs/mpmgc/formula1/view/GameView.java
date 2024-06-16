@@ -35,6 +35,7 @@ public class GameView extends Pane implements Observer<GameState> {
             Point start = points.get(i);
             Point end = points.get(i + 1);
             Line line = new Line(start.getX() * 20, start.getY() * 20, end.getX() * 20, end.getY() * 20);
+            System.out.println("line: "+ line.getStartX() + " - " + line.getEndX() + " - " + line.getStartY() + " - " + line.getEndY());
             line.setStroke(Color.BLACK);
             getChildren().add(line);
         }

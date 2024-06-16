@@ -1,22 +1,15 @@
 package it.unicam.cs.mpmgc.formula1;
 
 import it.unicam.cs.mpmgc.formula1.controller.GameController;
-import it.unicam.cs.mpmgc.formula1.controller.MoveController;
 import it.unicam.cs.mpmgc.formula1.model.*;
-import it.unicam.cs.mpmgc.formula1.model.player.HumanPlayer;
-import it.unicam.cs.mpmgc.formula1.model.player.Player;
-import it.unicam.cs.mpmgc.formula1.model.player.PlayerFactory;
-import it.unicam.cs.mpmgc.formula1.view.GameView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 public class MainApp extends Application {
     @Override
