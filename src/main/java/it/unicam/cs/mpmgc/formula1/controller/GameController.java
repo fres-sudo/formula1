@@ -4,8 +4,11 @@ import it.unicam.cs.mpmgc.formula1.model.*;
 import it.unicam.cs.mpmgc.formula1.model.player.HumanPlayer;
 import it.unicam.cs.mpmgc.formula1.model.player.Player;
 import it.unicam.cs.mpmgc.formula1.model.player.PlayerFactory;
+import it.unicam.cs.mpmgc.formula1.service.JSONTrackLoader;
+import it.unicam.cs.mpmgc.formula1.service.TrackLoader;
 import it.unicam.cs.mpmgc.formula1.view.GameView;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
@@ -14,7 +17,8 @@ import java.util.List;
 
 public class GameController {
     @FXML
-    private TextField inputField;
+    private Label currentState;
+
     @FXML
     private Pane gameViewPane;
 
@@ -50,6 +54,8 @@ public class GameController {
         gameEngine = new GameEngine();
         gameEngine.initialize(track, players);
 
+        currentState.setText("Game initializing, please wait...Press Start Race to start the game");
+
         // Connect the view (GUI) as an observer
         gameEngine.addObserver(gameView);
 
@@ -59,16 +65,19 @@ public class GameController {
 
     @FXML
     private void onStartRaceButtonClick() {
+        currentState.setText("Race Started");
         gameEngine.startRace();
     }
 
     @FXML
     private void onStopRaceButtonClick() {
+        currentState.setText("Race Stopped");
         gameEngine.stopRace();
     }
 
     @FXML
     private void onResetRaceButtonClick() {
+        currentState.setText("Reset Race, Press Start Race for starting the game");
         this.gameEngine = new GameEngine();
     }
 

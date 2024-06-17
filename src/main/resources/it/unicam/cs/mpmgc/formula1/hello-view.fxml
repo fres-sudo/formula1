@@ -22,6 +22,10 @@
 
         <Region prefHeight="20" />
 
+        <Label fx:id="currentState" styleClass="label"/>
+
+        <Region prefHeight="20" />
+
         <HBox>
                 <!-- Start Button -->
                 <Button text="Start Race" onAction="#onStartRaceButtonClick" styleClass="primary-button"/>
