@@ -1,5 +1,5 @@
 package it.unicam.cs.mpmgc.formula1.model.player;
-import it.unicam.cs.mpmgc.formula1.model.Point;
+import it.unicam.cs.mpmgc.formula1.model.point.Point;
 
 import java.util.ArrayList;
 import java.util.List;

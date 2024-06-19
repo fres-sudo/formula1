@@ -1,41 +1,65 @@
 package it.unicam.cs.mpmgc.formula1.controller;
 
-import it.unicam.cs.mpmgc.formula1.model.GameEngine;
-import it.unicam.cs.mpmgc.formula1.model.Point;
-import it.unicam.cs.mpmgc.formula1.model.player.Player;
-import javafx.scene.input.KeyCode;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import it.unicam.cs.mpmgc.formula1.model.GameModel;
+import it.unicam.cs.mpmgc.formula1.view.GameView;
 
+import java.util.function.Consumer;
 
-public class MoveController{
+public class MoveController {
 
-    private final GameEngine gameEngine;
-    private final Player player;
+    private GameModel gameModel;
+    private GameView gameView;
+    private int previousDx = 0;
+    private int previousDy = 0;
+    private Consumer<Void> onMoveCallback;
 
-    public MoveController(GameEngine engine, Player player){
-        this.gameEngine = engine;
-        this.player = player;
+    public MoveController(GameModel gameModel, GameView gameView) {
+        this.gameModel = gameModel;
+        this.gameView = gameView;
     }
 
-    public void move(KeyCode direction) {
-        Point currentPosition = player.getPosition();
+    public void setOnMoveCallback(Consumer<Void> onMoveCallback) {
+        this.onMoveCallback = onMoveCallback;
+    }
 
-        System.out.println("Current position: " + "[" + currentPosition.getX() + " " + currentPosition.getY() + "]");
+    public void initialize() {
+        updateViewPlayerPosition(gameModel.getPlayerX(), gameModel.getPlayerY());
+        drawMoveOptions(gameModel.getPlayerX(), gameModel.getPlayerY());
+    }
 
-        Point newPosition = switch (direction) {
-            case W -> new Point(currentPosition.getX(), currentPosition.getY() + 1);
-            case S -> new Point(currentPosition.getX(), currentPosition.getY() - 1);
-            case A -> new Point(currentPosition.getX() - 1, currentPosition.getY());
-            case D -> new Point(currentPosition.getX() + 1, currentPosition.getY());
-            default -> currentPosition;
+    private void updateViewPlayerPosition(int x, int y) {
+        gameView.updatePlayerPosition(x, y);
+    }
+
+    private void drawMoveOptions(int x, int y) {
+        int[][] directions = {
+                {previousDx, previousDy}, {previousDx - 1, previousDy}, {previousDx + 1, previousDy},
+                {previousDx, previousDy - 1}, {previousDx, previousDy + 1},
+                {previousDx - 1, previousDy - 1}, {previousDx - 1, previousDy + 1},
+                {previousDx + 1, previousDy - 1}, {previousDx + 1, previousDy + 1}
         };
-
-        System.out.println("New position: " + "[" + newPosition.getX() + " " + newPosition.getY() + "]");
-
-        //TODO: Check valid position
-        //if (gameEngine.getTrack().isValidPosition(currentPosition, newPosition)) {
-            player.setPosition(newPosition);
-            gameEngine.notifyObservers(gameEngine.getGameState());
-        //}
+        gameView.drawMoveOptions(x, y, directions, this::onMoveButtonClick);
     }
 
+    private void onMoveButtonClick(ActionEvent event) {
+        Button moveButton = (Button) event.getSource();
+        int newX = (int) (moveButton.getLayoutX() / 10);
+        int newY = (int) (moveButton.getLayoutY() / 10);
+        previousDx = newX - gameModel.getPlayerX();
+        previousDy = newY - gameModel.getPlayerY();
+        gameModel.setPlayerPosition(newX, newY);
+        updateViewPlayerPosition(newX, newY);
+        drawMoveOptions(newX, newY);
+        if (onMoveCallback != null) {
+            onMoveCallback.accept(null);
+        }
+    }
+
+    public void resetGame() {
+        gameModel.setPlayerPosition(0, 0);
+        updateViewPlayerPosition(0, 0);
+        drawMoveOptions(0, 0);
+    }
 }

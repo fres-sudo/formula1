@@ -1,5 +1,7 @@
 package it.unicam.cs.mpmgc.formula1.model;
 
+import it.unicam.cs.mpmgc.formula1.model.point.Point;
+
 import java.util.List;
 
 public class Track {
@@ -27,5 +29,10 @@ public class Track {
         }
         return false;
     }
+
+    public Point getStartPoint() {
+        return points.getFirst();
+    }
+
 }
 

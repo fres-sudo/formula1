@@ -1,5 +1,7 @@
 package it.unicam.cs.mpmgc.formula1.model;
 
+import java.util.Objects;
+
 public class GameModel {
 
     private int playerX;
@@ -22,6 +24,16 @@ public class GameModel {
         playerX = x;
         playerY = y;
     }
-}
-{
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GameModel gameModel)) return false;
+        return getPlayerX() == gameModel.getPlayerX() && getPlayerY() == gameModel.getPlayerY();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPlayerX(), getPlayerY());
+    }
 }

@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <VBox spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="it.unicam.cs.mpmgc.formula1.controller.GameController" stylesheets="@theme.css">
     <padding>
@@ -15,34 +16,40 @@
     </padding>
 
     <!-- Heading Label -->
-    <Label text="Formula 1" styleClass="heading"/>
+    <HBox>
+        <Label text="Formula 1 🏎️" styleClass="heading"/>
+        <Region HBox.hgrow="ALWAYS" />
+
+        <StackPane styleClass="container-outlined" >
+            <Label fx:id="timerLabel" text="0 seconds 🕒" styleClass="label"/>
+        </StackPane>
+    </HBox>
+
 
     <VBox>
         <Pane fx:id="gameViewPane" styleClass="game-view"/>
 
         <Region prefHeight="20" />
 
-        <Label fx:id="currentState" styleClass="label"/>
+        <Label  styleClass="label"/>
 
         <Region prefHeight="20" />
 
         <HBox>
                 <!-- Start Button -->
-                <Button text="Start Race" onAction="#onStartRaceButtonClick" styleClass="primary-button"/>
+                <Button text="Start Race"  styleClass="primary-button"/>
 
                 <Region prefWidth="10" />
 
                 <!-- Stop Button -->
-                <Button text="Start Race" onAction="#onStopRaceButtonClick" styleClass="secondary-button"/>
+                <Button text="Start Race" styleClass="secondary-button"/>
 
                 <Region prefWidth="10" />
                 <!-- Reset Button -->
-                <Button text="Reset" onAction="#onResetRaceButtonClick" styleClass="destructive-button"/>
+                <Button text="Reset" onMouseClicked="#onResetRaceButtonClick" styleClass="destructive-button"/>
 
             </HBox>
 
     </VBox>
-
-
 
 </VBox>
