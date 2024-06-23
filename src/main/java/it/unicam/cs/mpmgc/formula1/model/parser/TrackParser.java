@@ -41,6 +41,8 @@ public class TrackParser implements Parser<Track> {
                 .map(pointMapper::fromDTO)
                 .collect(Collectors.toList());
 
+        System.out.println(new Track(points));
+
         return new Track(points);
     }
 }

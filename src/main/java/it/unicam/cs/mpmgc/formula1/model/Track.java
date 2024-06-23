@@ -34,5 +34,15 @@ public class Track {
         return points.getFirst();
     }
 
+    @Override
+    public String toString() {
+        return "Track{" +
+                "points=" + points +
+                '}';
+    }
+
+    public boolean isWithinBounds(Point position) {
+        return !points.contains(position);
+    }
 }
 

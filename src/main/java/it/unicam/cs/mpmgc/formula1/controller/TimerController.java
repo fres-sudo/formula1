@@ -25,4 +25,8 @@ public class TimerController {
     private void updateLabel() {
         Platform.runLater(() -> timerLabel.setText(seconds + " seconds 🕒"));
     }
+
+    public String getLabelText() {
+        return timerLabel.getText();
+    }
 }

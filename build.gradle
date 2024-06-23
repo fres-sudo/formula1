@@ -16,6 +16,7 @@ repositories {
 
 ext {
     junitVersion = '5.10.0'
+    mockitoVersion = '4.11.0'
 }
 
 sourceCompatibility = '21'
@@ -42,10 +43,10 @@ dependencies {
     implementation('eu.hansolo:tilesfx:11.48') {
         exclude(group: 'org.openjfx')
     }
-    implementation('com.github.almasb:fxgl:17.3') {
-        exclude(group: 'org.openjfx')
-        exclude(group: 'org.jetbrains.kotlin')
-    }
+
+    // Mockito
+    testImplementation "org.mockito:mockito-inline:${mockitoVersion}"
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
