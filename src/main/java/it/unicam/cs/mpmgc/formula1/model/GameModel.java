@@ -2,8 +2,8 @@ package it.unicam.cs.mpmgc.formula1.model;
 
 import it.unicam.cs.mpmgc.formula1.model.player.Player;
 import it.unicam.cs.mpmgc.formula1.model.point.Point;
+import it.unicam.cs.mpmgc.formula1.model.track.Track;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 

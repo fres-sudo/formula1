@@ -1,6 +1,7 @@
 package it.unicam.cs.mpmgc.formula1.controller;
 
-import it.unicam.cs.mpmgc.formula1.model.Track;
+import it.unicam.cs.mpmgc.formula1.model.mapper.TrackMapper;
+import it.unicam.cs.mpmgc.formula1.model.track.Track;
 import it.unicam.cs.mpmgc.formula1.model.mapper.PointMapper;
 import it.unicam.cs.mpmgc.formula1.model.parser.TrackParser;
 import it.unicam.cs.mpmgc.formula1.model.player.HumanPlayer;
@@ -30,7 +31,7 @@ public class GameController {
     public void initialize() {
         Track track = loadTrack();
         List<Player> players = new ArrayList<>();
-        Point startingPoint = new Point(track.getStartPoint().x() , track.getStartPoint().y() + 1); //sum is for centering
+        Point startingPoint = new Point(track.getStartPoint().x() , track.getStartPoint().y() + 4); //sum is for centering
         players.add(new HumanPlayer(startingPoint));
 
         GameModel gameModel = new GameModel(track, players);
@@ -53,7 +54,8 @@ public class GameController {
 
     private Track loadTrack() {
         PointMapper pointMapper = new PointMapper();
-        TrackParser parser = new TrackParser(pointMapper);
+        TrackMapper trackMapper = new TrackMapper(pointMapper);
+        TrackParser parser = new TrackParser(pointMapper, trackMapper);
         try {
             return parser.parse("src/main/resources/track.json");
         } catch (IOException e) {

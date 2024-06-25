@@ -21,11 +21,11 @@ public class MoveController {
         this.gameModel = gameModel;
         this.gameView = gameView;
         this.onMoveCallback = onMoveCallback;
-        for(Player player : gameModel.getPlayers()) {
-            Point startPoint = new Point(gameModel.getTrack().getStartPoint().x() * 2, gameModel.getTrack().getStartPoint().y() * 2);
+        for (Player player : gameModel.getPlayers()) {
+            Point startPoint = new Point(gameModel.getTrack().getStartPoint().x() * 2 + 1, gameModel.getTrack().getStartPoint().y() * 2 + 4);
             player.setPosition(startPoint);
             updateViewPlayerPosition(player, startPoint);
-            if(player instanceof HumanPlayer) {
+            if (player instanceof HumanPlayer) {
                 lastPosition = player.getPosition();
                 drawMoveOptions(gameModel.getTrack().getStartPoint());
             }
@@ -41,12 +41,12 @@ public class MoveController {
         int x = lastPosition.x();
         int y = lastPosition.y();
         int[][] directions = {
-                {x, y}, {x - 1, y}, {x + 1, y},
-                {x, y - 1}, {x, y + 1},
-                {x - 1, y - 1}, {x - 1, y + 1},
-                {x + 1, y - 1}, {x + 1, y + 1}
+                {x, y}, {x - 10, y}, {x + 10, y},
+                {x, y - 10}, {x, y + 10},
+                {x - 10, y - 10}, {x - 10, y + 10},
+                {x + 10, y - 10}, {x + 10, y + 10}
         };
-        if(point.equals(gameModel.getTrack().getStartPoint())) {
+        if (point.equals(gameModel.getTrack().getStartPoint())) {
             point = new Point(gameModel.getTrack().getStartPoint().x() / 2, gameModel.getTrack().getStartPoint().y() / 2);
         }
         gameView.drawMoveOptions(point, directions, this::onMoveButtonClick);
@@ -55,40 +55,25 @@ public class MoveController {
     protected void onMoveButtonClick(ActionEvent event) {
         Player currentPlayer = gameModel.getPlayers().getFirst();
         Button moveButton = (Button) event.getSource();
-        Point newPoint = new Point((int) (moveButton.getLayoutX() / 10), (int) (moveButton.getLayoutY() / 10));
+        Point newPoint = new Point((int) (moveButton.getLayoutX() ), (int) (moveButton.getLayoutY() ));
 
-        if(isValidPosition(newPoint)){
+        if (gameModel.getTrack().isValidPosition(newPoint)) {
             int lastX = newPoint.x() - currentPlayer.getPosition().x();
             int lastY = newPoint.y() - currentPlayer.getPosition().y();
             Point tmp = new Point(currentPlayer.getPosition().x(), currentPlayer.getPosition().y());// store the last known position
             lastPosition = new Point(lastX, lastY); //TODO UNDERSTAND THIS
+            System.out.println("lastPosition: " + lastPosition);
             gameModel.setPlayerPosition(currentPlayer, newPoint);
             updateViewPlayerPosition(currentPlayer, tmp);
             drawMoveOptions(newPoint);
-        }
-        if (onMoveCallback != null) {
-            onMoveCallback.accept(null);
-        }
-    }
-
-    private boolean isValidPosition(Point position) {
-        // Check if the position is within track boundaries
-        if (!gameModel.getTrack().isWithinBounds(position)) {
-            return false;
-        }
-
-        // Check if the position is occupied by another player
-        for (Player player : gameModel.getPlayers()) {
-            if (player.getPosition().equals(position)) {
-                return false;
+            if (onMoveCallback != null) {
+                onMoveCallback.accept(null);
             }
         }
-
-        return true;
     }
 
     public void resetGame() {
-        for(Player player : gameModel.getPlayers()) {
+        for (Player player : gameModel.getPlayers()) {
             player.setPosition(gameModel.getTrack().getStartPoint());
             updateViewPlayerPosition(player, player.getPosition());
             drawMoveOptions(player.getPosition());

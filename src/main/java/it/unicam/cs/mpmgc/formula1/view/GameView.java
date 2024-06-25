@@ -1,7 +1,7 @@
 package it.unicam.cs.mpmgc.formula1.view;
 
 import it.unicam.cs.mpmgc.formula1.model.GameModel;
-import it.unicam.cs.mpmgc.formula1.model.Track;
+import it.unicam.cs.mpmgc.formula1.model.track.Track;
 import it.unicam.cs.mpmgc.formula1.model.player.Player;
 import it.unicam.cs.mpmgc.formula1.model.point.Point;
 import javafx.animation.TranslateTransition;
@@ -26,8 +26,8 @@ public class GameView extends Pane {
     private final Map<Player, List<Line>> playerPath = new HashMap<>();
     private final List<Button> moveButtons = new ArrayList<>();;
 
-    private static final int AXIS_FACTOR = 10;
-    private static final int TRACK_FACTOR = 20;
+    private static final int AXIS_FACTOR = 1;
+    private static final int TRACK_FACTOR = 2;
     private static final int BUTTON_SIZE = 10;
 
     public GameView(GameModel gameModel) {
@@ -130,21 +130,21 @@ public class GameView extends Pane {
         }
 
         Point start = track.getStartPoint();
-        Circle startCircle = new Circle(start.x() * AXIS_FACTOR, start.y() * AXIS_FACTOR, 5, Color.GREEN);
+        Circle startCircle = new Circle(start.x() * AXIS_FACTOR * 2, start.y() * AXIS_FACTOR * 2 + 10, 5, Color.GREEN);
         getChildren().add(startCircle);
     }
 
     private void drawGrid(Canvas canvas) {
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        GraphicsContext context = canvas.getGraphicsContext2D();
         int cellSize = 10;
-        gc.setStroke(Color.LIGHTGREY.deriveColor(0, 1.0, 1.0, 0.15)); //for the opacity
+        context.setStroke(Color.LIGHTGREY.deriveColor(0, 1.0, 1.0, 0.15)); //for the opacity
 
         for (int i = 0; i < canvas.getWidth(); i += cellSize) {
-            gc.strokeLine(i, 0, i, canvas.getHeight());
+            context.strokeLine(i, 0, i, canvas.getHeight());
         }
 
         for (int i = 0; i < canvas.getHeight(); i += cellSize) {
-            gc.strokeLine(0, i, canvas.getWidth(), i);
+            context.strokeLine(0, i, canvas.getWidth(), i);
         }
     }
 
