@@ -31,7 +31,7 @@ public class GameController {
     public void initialize() {
         Track track = loadTrack();
         List<Player> players = new ArrayList<>();
-        Point startingPoint = new Point(track.getStartPoint().x() , track.getStartPoint().y() + 4); //sum is for centering
+        Point startingPoint = track.getStartPoint();
         players.add(new HumanPlayer(startingPoint));
 
         GameModel gameModel = new GameModel(track, players);
@@ -55,7 +55,7 @@ public class GameController {
     private Track loadTrack() {
         PointMapper pointMapper = new PointMapper();
         TrackMapper trackMapper = new TrackMapper(pointMapper);
-        TrackParser parser = new TrackParser(pointMapper, trackMapper);
+        TrackParser parser = new TrackParser(trackMapper);
         try {
             return parser.parse("src/main/resources/track.json");
         } catch (IOException e) {

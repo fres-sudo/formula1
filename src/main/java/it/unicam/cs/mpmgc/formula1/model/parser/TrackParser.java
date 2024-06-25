@@ -18,7 +18,7 @@ public class TrackParser implements Parser<Track> {
 
     private final TrackMapper trackMapper;
 
-    public TrackParser(PointMapper pointMapper, TrackMapper trackMapper) {
+    public TrackParser(TrackMapper trackMapper) {
         this.trackMapper = trackMapper;
     }
 
@@ -55,6 +55,6 @@ public class TrackParser implements Parser<Track> {
     private PointJTO parseStartingPoint(JSONObject jsonObject) {
         int x = jsonObject.getInt("x");
         int y = jsonObject.getInt("y");
-        return new PointJTO(x * 4, y * 4);
+        return new PointJTO(x * AXIS_FACTOR, y * AXIS_FACTOR);
     }
 }

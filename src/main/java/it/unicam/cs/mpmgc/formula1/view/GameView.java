@@ -25,14 +25,15 @@ public class GameView extends Pane {
     private final Map<Player, Circle> playerCircle = new HashMap<>();
     private final Map<Player, List<Line>> playerPath = new HashMap<>();
     private final List<Button> moveButtons = new ArrayList<>();;
+    private final GameModel gameModel;
 
-    private static final int AXIS_FACTOR = 1;
     private static final int TRACK_FACTOR = 2;
     private static final int BUTTON_SIZE = 10;
 
     public GameView(GameModel gameModel) {
 
         setPrefSize(800, 800);
+        this.gameModel = gameModel;
 
         // Create and draw the grid canvas
         Canvas gridCanvas = new Canvas(getPrefWidth(), getPrefHeight());
@@ -61,10 +62,10 @@ public class GameView extends Pane {
 
     private Line drawLine(Point startPoint, Point endPoint) {
         Line line = new Line(
-                startPoint.x() * AXIS_FACTOR,
-                startPoint.y() * AXIS_FACTOR,
-                endPoint.x() * AXIS_FACTOR,
-                endPoint.y() * AXIS_FACTOR
+                startPoint.x(),
+                startPoint.y(),
+                endPoint.x(),
+                endPoint.y()
         );
         line.setStroke(Color.RED);
         getChildren().add(line);
@@ -76,8 +77,8 @@ public class GameView extends Pane {
 
         Circle playerCircle = this.playerCircle.get(player);
         TranslateTransition transition = new TranslateTransition(Duration.millis(500), playerCircle);
-        transition.setToX(currentPosition.x() * AXIS_FACTOR);
-        transition.setToY(currentPosition.y() * AXIS_FACTOR);
+        transition.setToX(currentPosition.x());
+        transition.setToY(currentPosition.y());
         transition.play();
     }
 
@@ -86,7 +87,13 @@ public class GameView extends Pane {
         for (int[] direction : directions) {
             int newX = point.x() + (direction[0]);
             int newY = point.y() + (direction[1]);
-            Point newPoint = new Point(newX, newY);
+            Point newPoint;
+            Point startingPoint = new Point(gameModel.getTrack().getStartPoint().x() * TRACK_FACTOR, gameModel.getTrack().getStartPoint().y() * TRACK_FACTOR);
+            if(point.equals(startingPoint)){
+                newPoint = new Point(newX - point.x() + 5, newY - point.y() - 5);// +/- 5 to center the move button at the beginning of the race
+            } else {
+                newPoint = new Point(newX, newY);
+            }
             Button moveButton = createMoveButton(newPoint, moveHandler);
             moveButtons.add(moveButton);
             getChildren().add(moveButton);
@@ -96,8 +103,8 @@ public class GameView extends Pane {
     private Button createMoveButton(Point point, EventHandler<ActionEvent> moveHandler) {
         Button moveButton = new Button();
         moveButton.getStyleClass().add("outline-button");
-        moveButton.setLayoutX(point.x() * AXIS_FACTOR);
-        moveButton.setLayoutY(point.y() * AXIS_FACTOR);
+        moveButton.setLayoutX(point.x());
+        moveButton.setLayoutY(point.y());
         moveButton.setShape(new Circle(5));
         moveButton.setMinSize(BUTTON_SIZE, BUTTON_SIZE);
         moveButton.setMaxSize(BUTTON_SIZE, BUTTON_SIZE);
@@ -130,7 +137,7 @@ public class GameView extends Pane {
         }
 
         Point start = track.getStartPoint();
-        Circle startCircle = new Circle(start.x() * AXIS_FACTOR * 2, start.y() * AXIS_FACTOR * 2 + 10, 5, Color.GREEN);
+        Circle startCircle = new Circle(start.x() * TRACK_FACTOR, start.y() * TRACK_FACTOR + 10, 5, Color.GREEN);
         getChildren().add(startCircle);
     }
 

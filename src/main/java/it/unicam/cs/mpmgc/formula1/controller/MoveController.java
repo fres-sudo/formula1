@@ -22,12 +22,12 @@ public class MoveController {
         this.gameView = gameView;
         this.onMoveCallback = onMoveCallback;
         for (Player player : gameModel.getPlayers()) {
-            Point startPoint = new Point(gameModel.getTrack().getStartPoint().x() * 2 + 1, gameModel.getTrack().getStartPoint().y() * 2 + 4);
+            Point startPoint = new Point(gameModel.getTrack().getStartPoint().x() * 2, gameModel.getTrack().getStartPoint().y() *2);
             player.setPosition(startPoint);
             updateViewPlayerPosition(player, startPoint);
             if (player instanceof HumanPlayer) {
                 lastPosition = player.getPosition();
-                drawMoveOptions(gameModel.getTrack().getStartPoint());
+                drawMoveOptions(lastPosition);
             }
         }
     }
@@ -46,9 +46,6 @@ public class MoveController {
                 {x - 10, y - 10}, {x - 10, y + 10},
                 {x + 10, y - 10}, {x + 10, y + 10}
         };
-        if (point.equals(gameModel.getTrack().getStartPoint())) {
-            point = new Point(gameModel.getTrack().getStartPoint().x() / 2, gameModel.getTrack().getStartPoint().y() / 2);
-        }
         gameView.drawMoveOptions(point, directions, this::onMoveButtonClick);
     }
 
@@ -62,7 +59,7 @@ public class MoveController {
             int lastY = newPoint.y() - currentPlayer.getPosition().y();
             Point tmp = new Point(currentPlayer.getPosition().x(), currentPlayer.getPosition().y());// store the last known position
             lastPosition = new Point(lastX, lastY); //TODO UNDERSTAND THIS
-            System.out.println("lastPosition: " + lastPosition);
+            System.out.println("position:" + newPoint);
             gameModel.setPlayerPosition(currentPlayer, newPoint);
             updateViewPlayerPosition(currentPlayer, tmp);
             drawMoveOptions(newPoint);
