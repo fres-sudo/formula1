@@ -1,6 +1,7 @@
 package it.unicam.cs.mpmgc.formula1.view;
 
 import it.unicam.cs.mpmgc.formula1.model.GameModel;
+import it.unicam.cs.mpmgc.formula1.model.player.HumanPlayer;
 import it.unicam.cs.mpmgc.formula1.model.track.Track;
 import it.unicam.cs.mpmgc.formula1.model.player.Player;
 import it.unicam.cs.mpmgc.formula1.model.point.Point;
@@ -46,7 +47,7 @@ public class GameView extends Pane {
         for(Player player : gameModel.getPlayers()) {
             //player.setPosition(gameModel.getTrack().getStartPoint());
             playerPath.put(player, new ArrayList<>());
-            playerCircle.put(player, new Circle(5, Color.RED));
+            playerCircle.put(player, new Circle(5, player instanceof HumanPlayer ? Color.RED : Color.GREENYELLOW));
             getChildren().add(playerCircle.get(player));
         }
     }
@@ -135,10 +136,6 @@ public class GameView extends Pane {
             trackLine.setStrokeWidth(2);
             getChildren().add(trackLine);
         }
-
-        Point start = track.getStartPoint();
-        Circle startCircle = new Circle(start.x() * TRACK_FACTOR, start.y() * TRACK_FACTOR + 10, 5, Color.GREEN);
-        getChildren().add(startCircle);
     }
 
     private void drawGrid(Canvas canvas) {

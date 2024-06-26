@@ -1,6 +1,8 @@
 package it.unicam.cs.mpmgc.formula1.controller;
 
 import it.unicam.cs.mpmgc.formula1.model.mapper.TrackMapper;
+import it.unicam.cs.mpmgc.formula1.model.parser.PathParser;
+import it.unicam.cs.mpmgc.formula1.model.player.BotPlayer;
 import it.unicam.cs.mpmgc.formula1.model.track.Track;
 import it.unicam.cs.mpmgc.formula1.model.mapper.PointMapper;
 import it.unicam.cs.mpmgc.formula1.model.parser.TrackParser;
@@ -30,9 +32,13 @@ public class GameController {
     @FXML
     public void initialize() {
         Track track = loadTrack();
+        List<List<Point>> paths = loadPaths();
         List<Player> players = new ArrayList<>();
         Point startingPoint = track.getStartPoint();
         players.add(new HumanPlayer(startingPoint));
+        for(List<Point> path : paths) {
+            players.add(new BotPlayer(startingPoint, path));
+        }
 
         GameModel gameModel = new GameModel(track, players);
         GameView gameView = new GameView(gameModel);
@@ -41,6 +47,7 @@ public class GameController {
         moveController = new MoveController(
                 gameModel,
                 gameView,
+                timerController,
                 ignored -> timerController.incrementTime());
 
         gameViewPane.getChildren().add(gameView);
@@ -49,7 +56,7 @@ public class GameController {
     @FXML
     protected void onResetRaceButtonClick() {
         moveController.resetGame();
-        timerController.resetTime();
+        timerController.incrementTime();
     }
 
     private Track loadTrack() {
@@ -59,6 +66,16 @@ public class GameController {
         try {
             return parser.parse("src/main/resources/track.json");
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private  List<List<Point>> loadPaths() {
+        PointMapper pointMapper = new PointMapper();
+        PathParser parser = new PathParser(pointMapper);
+        try {
+            return parser.parse("src/main/resources/bot_path.json");
+        } catch (IOException e){
             throw new RuntimeException(e);
         }
     }

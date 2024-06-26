@@ -29,10 +29,6 @@ public class GameModel {
         return track;
     }
 
-    public void setTrack(Track track) {
-        this.track = track;
-    }
-
     public List<Player> getPlayers() {
         return players;
     }

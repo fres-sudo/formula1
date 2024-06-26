@@ -22,6 +22,12 @@ public class TimerController {
         updateLabel();
     }
 
+    public int getSeconds() {
+        return this.seconds;
+    }
+
+
+
     private void updateLabel() {
         Platform.runLater(() -> timerLabel.setText(seconds + " seconds 🕒"));
     }

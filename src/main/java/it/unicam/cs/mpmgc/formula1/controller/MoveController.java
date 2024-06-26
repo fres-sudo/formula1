@@ -1,5 +1,6 @@
 package it.unicam.cs.mpmgc.formula1.controller;
 
+import it.unicam.cs.mpmgc.formula1.model.player.BotPlayer;
 import it.unicam.cs.mpmgc.formula1.model.player.HumanPlayer;
 import it.unicam.cs.mpmgc.formula1.model.player.Player;
 import it.unicam.cs.mpmgc.formula1.model.point.Point;
@@ -8,21 +9,26 @@ import javafx.scene.control.Button;
 import it.unicam.cs.mpmgc.formula1.model.GameModel;
 import it.unicam.cs.mpmgc.formula1.view.GameView;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class MoveController {
 
     private final GameModel gameModel;
     private final GameView gameView;
+    private final TimerController timerController;
     private Point lastPosition;
     private final Consumer<Void> onMoveCallback;
 
-    public MoveController(GameModel gameModel, GameView gameView, Consumer<Void> onMoveCallback) {
+    public MoveController(GameModel gameModel, GameView gameView, TimerController timerController, Consumer<Void> onMoveCallback) {
         this.gameModel = gameModel;
         this.gameView = gameView;
+        this.timerController = timerController;
         this.onMoveCallback = onMoveCallback;
         for (Player player : gameModel.getPlayers()) {
-            Point startPoint = new Point(gameModel.getTrack().getStartPoint().x() * 2, gameModel.getTrack().getStartPoint().y() *2);
+            Point startPoint = new Point(
+                    gameModel.getTrack().getStartPoint().x() * 2,
+                    gameModel.getTrack().getStartPoint().y() * 2); // * 2 is for track scale adaptation
             player.setPosition(startPoint);
             updateViewPlayerPosition(player, startPoint);
             if (player instanceof HumanPlayer) {
@@ -50,21 +56,40 @@ public class MoveController {
     }
 
     protected void onMoveButtonClick(ActionEvent event) {
-        Player currentPlayer = gameModel.getPlayers().getFirst();
+        Player humanPlayer = gameModel.getPlayers().getFirst();
         Button moveButton = (Button) event.getSource();
         Point newPoint = new Point((int) (moveButton.getLayoutX() ), (int) (moveButton.getLayoutY() ));
 
         if (gameModel.getTrack().isValidPosition(newPoint)) {
-            int lastX = newPoint.x() - currentPlayer.getPosition().x();
-            int lastY = newPoint.y() - currentPlayer.getPosition().y();
-            Point tmp = new Point(currentPlayer.getPosition().x(), currentPlayer.getPosition().y());// store the last known position
+            int lastX = newPoint.x() - humanPlayer.getPosition().x();
+            int lastY = newPoint.y() - humanPlayer.getPosition().y();
+            Point tmp = new Point(humanPlayer.getPosition().x(), humanPlayer.getPosition().y());// store the last known position
             lastPosition = new Point(lastX, lastY); //TODO UNDERSTAND THIS
-            System.out.println("position:" + newPoint);
-            gameModel.setPlayerPosition(currentPlayer, newPoint);
-            updateViewPlayerPosition(currentPlayer, tmp);
+            //String x = "x";
+            //String y = "y";
+            //String x1 = '"' + x + '"';
+            //String y1 = '"' + y + '"';
+            //System.out.println("{" + x1 + ": " + newPoint.x()/20 + "," + y1 + ": " + newPoint.y()/20 + "}");
+            gameModel.setPlayerPosition(humanPlayer, newPoint);
+            updateViewPlayerPosition(humanPlayer, tmp);
             drawMoveOptions(newPoint);
             if (onMoveCallback != null) {
                 onMoveCallback.accept(null);
+            }
+            updateBotPositions();
+        }
+    }
+
+    private void updateBotPositions() {
+        int step = timerController.getSeconds();
+        for (Player player : gameModel.getPlayers()) {
+            if (player instanceof BotPlayer botPlayer) {
+                Point nextMove = botPlayer.getNextMove(step);
+                if (nextMove != null) {
+                    System.out.println(nextMove);
+                    updateViewPlayerPosition(botPlayer, botPlayer.getPath().get(step - 1));
+                    gameModel.setPlayerPosition(botPlayer, nextMove);
+                }
             }
         }
     }

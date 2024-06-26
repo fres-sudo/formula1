@@ -1,8 +1,8 @@
 package it.unicam.cs.mpmgc.formula1.model.parser;
 
+import it.unicam.cs.mpmgc.formula1.model.mapper.PointMapper;
 import it.unicam.cs.mpmgc.formula1.model.track.Track;
 import it.unicam.cs.mpmgc.formula1.model.track.TrackJTO;
-import it.unicam.cs.mpmgc.formula1.model.mapper.PointMapper;
 import it.unicam.cs.mpmgc.formula1.model.mapper.TrackMapper;
 import it.unicam.cs.mpmgc.formula1.model.point.PointJTO;
 import org.json.JSONArray;
@@ -17,6 +17,11 @@ import java.util.List;
 public class TrackParser implements Parser<Track> {
 
     private final TrackMapper trackMapper;
+
+    public TrackParser() {
+        PointMapper pointMapper = new PointMapper();
+        this.trackMapper = new TrackMapper(pointMapper);
+    }
 
     public TrackParser(TrackMapper trackMapper) {
         this.trackMapper = trackMapper;
@@ -41,7 +46,7 @@ public class TrackParser implements Parser<Track> {
         return trackMapper.fromDTO(trackJTO);
     }
 
-    private List<PointJTO> parseTrackPoints(JSONArray jsonArray) {
+    public List<PointJTO> parseTrackPoints(JSONArray jsonArray) {
         List<PointJTO> pointDTOs = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject pointObject = jsonArray.getJSONObject(i);
