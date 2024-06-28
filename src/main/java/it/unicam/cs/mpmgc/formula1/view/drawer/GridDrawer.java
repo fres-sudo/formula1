@@ -5,7 +5,16 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+/**
+ * Class to perform the drawing in the UI of the Grid
+ */
 public class GridDrawer implements Drawer<Canvas> {
+    /**
+     * Method to draw the background grid of the game for better understanding of the position of the players.
+     *
+     * @param canvas grid the user want to draw
+     * @param pane   the pane where the user want to draw
+     */
     @Override
     public void draw(Canvas canvas, Pane pane) {
         GraphicsContext context = canvas.getGraphicsContext2D();

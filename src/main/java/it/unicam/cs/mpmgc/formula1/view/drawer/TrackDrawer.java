@@ -8,9 +8,18 @@ import javafx.scene.shape.Line;
 
 import java.util.List;
 
+/**
+ * Class to perform the drawing in the UI of the Track
+ */
 public class TrackDrawer implements Drawer<Track> {
     private static final int TRACK_FACTOR = 2;
 
+    /**
+     * Method to draw the track in the UI
+     *
+     * @param track track the user want to draw
+     * @param pane  the pane where the user want to draw
+     */
     @Override
     public void draw(Track track, Pane pane) {
         List<Point> points = track.getPoints();

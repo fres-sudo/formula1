@@ -66,6 +66,7 @@ public class MoveController {
                  humanMoveController.drawMoveOptions(startPoint);
             }
         }
+        gameView.resetGame();
     }
 
 }

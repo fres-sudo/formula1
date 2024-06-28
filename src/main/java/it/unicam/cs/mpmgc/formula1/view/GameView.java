@@ -18,20 +18,29 @@ import javafx.scene.shape.Circle;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Core class that defines the View of a game, extends a Pane
+ * since it's a {@link Pane} UI object
+ */
 public class GameView extends Pane {
     private static final int TRACK_FACTOR = 2;
     private static final int BUTTON_SIZE = 10;
 
     private final List<Button> moveButtons = new ArrayList<>();
     private final GameModel gameModel;
-    private final PlayerDrawer playerManager;
+    private final PlayerDrawer playerDrawer;
     private final Drawer<Canvas> gridDrawer;
     private final Drawer<Track> trackDrawer;
 
+    /**
+     * Constructor method that initialize all the Drawing parts of the UI
+     *
+     * @param gameModel instance of {@link GameModel}
+     */
     public GameView(GameModel gameModel) {
         setPrefSize(800, 800);
         this.gameModel = gameModel;
-        this.playerManager = new PlayerDrawer(gameModel.getPlayers());
+        this.playerDrawer = new PlayerDrawer(gameModel.getPlayers());
         this.gridDrawer = new GridDrawer();
         this.trackDrawer = new TrackDrawer();
 
@@ -41,13 +50,27 @@ public class GameView extends Pane {
 
         trackDrawer.draw(gameModel.getTrack(), this);
 
-        playerManager.initializePlayersView(this);
+        playerDrawer.initializePlayersView(this);
     }
 
+    /**
+     * Method to call the re-draw on the update of the player position
+     *
+     * @param player the player the user want to update the position
+     * @param lastPosition the last known position of the player
+     */
     public void updatePlayerPosition(Player player, Point lastPosition) {
-        playerManager.updateViewPlayerPosition(player, lastPosition, this);
+        playerDrawer.updateViewPlayerPosition(player, lastPosition, this);
     }
 
+    /**
+     * Method to draw in the UI all the 9 buttons responsible for the movement
+     * of a human player
+     *
+     * @param point the point where the buttons are centered
+     * @param directions all the 9 directions of the buttons
+     * @param moveHandler the handler of the movement
+     */
     public void drawMoveOptions(Point point, int[][] directions, EventHandler<ActionEvent> moveHandler) {
         clearMoveOptions();
         for (int[] direction : directions) {
@@ -64,6 +87,13 @@ public class GameView extends Pane {
         }
     }
 
+    /**
+     * Helper method to create and place the UI Button movement.
+     *
+     * @param point the point where place the button
+     * @param moveHandler the handler of the movement
+     * @return an instance of a {@link Button}
+     */
     private Button createMoveButton(Point point, EventHandler<ActionEvent> moveHandler) {
         Button moveButton = new Button();
         moveButton.getStyleClass().add("outline-button");
@@ -76,14 +106,20 @@ public class GameView extends Pane {
         return moveButton;
     }
 
-    public void clearMoveOptions() {
+    /**
+     * Helper method to clear the old move buttons.
+     */
+    private void clearMoveOptions() {
         for (Button button : moveButtons) {
             getChildren().remove(button);
         }
         moveButtons.clear();
     }
 
+    /**
+     * Method to redraw the players on reset.
+     */
     public void resetGame() {
-        playerManager.resetViewPlayers();
+        playerDrawer.resetViewPlayers();
     }
 }
