@@ -12,9 +12,9 @@ public interface Parser<T> {
     /**
      * Method used to parse a file, usually a Json, to a Java Object
      *
-     * @param s the path of the file
+     * @param path the path of the file to parse
      * @return The object parsed
-     * @throws IOException if the source of the file is not correct
+     * @throws IOException if the source of the file is not correct or something happens reading from it
      */
-    T parse(String s) throws IOException;
+    T parse(String path) throws IOException;
 }

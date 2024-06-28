@@ -6,17 +6,32 @@ import it.unicam.cs.mpmgc.formula1.model.player.Player;
 import it.unicam.cs.mpmgc.formula1.model.point.Point;
 import it.unicam.cs.mpmgc.formula1.view.GameView;
 
+
+/**
+ * Describes the movement of a Bot Player
+ */
 public class BotMoveController {
 
     private final GameModel gameModel;
     private final GameView gameView;
     private final TimerController timerController;
 
+    /**
+     * Constructor method for BotMoveController to initialize all the actors of the controller.
+     *
+     * @param gameModel the instance of the {@link GameModel}
+     * @param gameView the instance of the {@link GameView}
+     * @param timerController the instance of TimerController for finding the position of the bot
+     */
     public BotMoveController(GameModel gameModel, GameView gameView, TimerController timerController) {
         this.gameModel = gameModel;
         this.gameView = gameView;
         this.timerController = timerController;
     }
+
+    /**
+     * This method move a Bot Player by updating his position.
+     */
     public void updateBotPosition() {
         int step = timerController.getSeconds();
         for (Player player : gameModel.getPlayers()) {
