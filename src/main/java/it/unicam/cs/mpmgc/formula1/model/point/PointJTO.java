@@ -1,6 +1,5 @@
 package it.unicam.cs.mpmgc.formula1.model.point;
 import org.json.JSONObject;
-import java.util.Objects;
 
 
 public record PointJTO(int x, int y) {

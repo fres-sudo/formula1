@@ -4,6 +4,9 @@ import it.unicam.cs.mpmgc.formula1.model.point.Point;
 
 import java.util.List;
 
+/**
+ * Class that defines how a Bot Player should work.
+ */
 public class BotPlayer extends Player {
 
     List<Point> path;

@@ -2,7 +2,9 @@ package it.unicam.cs.mpmgc.formula1.model.player;
 
 import it.unicam.cs.mpmgc.formula1.model.point.Point;
 
-// HumanPlayer.java
+/**
+ * Class that defines how a Human Player should work.
+ */
 public class HumanPlayer extends Player {
 
     public HumanPlayer(Point startPosition) {

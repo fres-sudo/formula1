@@ -7,11 +7,20 @@ import it.unicam.cs.mpmgc.formula1.model.track.Track;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Core Class that defines the general structure of a Game
+ */
 public class GameModel {
 
     private List<Player> players;
     private Track track;
 
+    /**
+     * Constructor method to initialize all the necessary parts of a Game
+     *
+     * @param track the track of a specific Game
+     * @param players the players of a specific Game
+     */
     public GameModel(Track track, List<Player> players) {
         this.track = track;
         this.players = players;
