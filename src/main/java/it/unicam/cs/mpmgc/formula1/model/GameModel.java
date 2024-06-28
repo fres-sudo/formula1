@@ -17,12 +17,8 @@ public class GameModel {
         this.players = players;
     }
 
-    public void setPlayerPosition(Player player,Point point) {
-        for(Player p : players){
-            if (p.equals(player)) {
-                p.setPosition(point);
-            }
-        }
+    public void setPlayerPosition(Player player, Point point) {
+        players.get(players.indexOf(player)).setPosition(point);
     }
 
     public Track getTrack() {

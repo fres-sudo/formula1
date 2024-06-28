@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class TrackMapper {
+public class TrackMapper implements DTOMapper<TrackJTO, Track>{
 
     private final PointMapper pointMapper;
 
@@ -17,6 +17,7 @@ public class TrackMapper {
         this.pointMapper = pointMapper;
     }
 
+    @Override
     public Track fromDTO(TrackJTO dto) {
         List<Point> innerTrack = dto.getInnerTrack().stream()
                 .map(pointMapper::fromDTO)
@@ -32,10 +33,11 @@ public class TrackMapper {
                 .collect(Collectors.toList());
 
         Track track = new Track(allPoints);
-        track.setStartingPoint(startingPoint);  // Assuming you add this setter in Track class
+        track.setStartingPoint(startingPoint);
         return track;
     }
 
+    @Override
     public TrackJTO toDTO(Track model) {
         List<PointJTO> innerTrack = model.getInnerTrack().stream()
                 .map(pointMapper::toDTO)

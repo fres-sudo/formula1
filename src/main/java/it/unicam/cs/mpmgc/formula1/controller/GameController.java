@@ -48,7 +48,8 @@ public class GameController {
                 gameModel,
                 gameView,
                 timerController,
-                ignored -> timerController.incrementTime());
+                unused -> timerController.incrementTime()
+        );
 
         gameViewPane.getChildren().add(gameView);
     }
@@ -56,7 +57,7 @@ public class GameController {
     @FXML
     protected void onResetRaceButtonClick() {
         moveController.resetGame();
-        timerController.incrementTime();
+        timerController.resetTime();
     }
 
     private Track loadTrack() {

@@ -1,10 +1,9 @@
 package it.unicam.cs.mpmgc.formula1.model.mapper;
 
-import it.unicam.cs.mpmgc.formula1.model.dto.DTOMapper;
 import it.unicam.cs.mpmgc.formula1.model.point.Point;
 import it.unicam.cs.mpmgc.formula1.model.point.PointJTO;
 
-public class PointMapper implements DTOMapper<Point, PointJTO> {
+public class PointMapper implements DTOMapper<PointJTO, Point> {
     @Override
     public Point fromDTO(PointJTO dto) {
         return new Point(dto.x(), dto.y());
