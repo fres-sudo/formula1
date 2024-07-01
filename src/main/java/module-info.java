@@ -5,6 +5,7 @@ module it.unicam.cs.mpmgc.formulauno {
 
     requires org.controlsfx.controls;
     requires org.json;
+    requires jdk.jdi;
 
 
     opens it.unicam.cs.mpmgc.formula1 to javafx.fxml;

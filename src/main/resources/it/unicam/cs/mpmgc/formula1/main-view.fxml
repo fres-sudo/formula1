@@ -17,7 +17,7 @@
 
     <!-- Heading Label -->
     <HBox>
-        <Label text="Formula 1 🏎️" styleClass="heading"/>
+        <Label text="Formula 1 🏎️💨" styleClass="heading"/>
         <Region HBox.hgrow="ALWAYS" />
 
         <StackPane styleClass="container-outlined" >
@@ -27,28 +27,16 @@
 
 
     <VBox>
-        <Pane fx:id="gameViewPane" styleClass="game-view"/>
+        <Pane fx:id="gameViewPane" styleClass="game-view" prefWidth="800" prefHeight="800"/>
 
         <Region prefHeight="20" />
 
-        <Label  styleClass="label"/>
+        <Label fx:id="stateLabel" text="" styleClass="label"/>
 
         <Region prefHeight="20" />
 
-        <HBox>
-                <!-- Start Button -->
-                <Button text="Start Race"  styleClass="primary-button"/>
-
-                <Region prefWidth="10" />
-
-                <!-- Stop Button -->
-                <Button text="Start Race" styleClass="secondary-button"/>
-
-                <Region prefWidth="10" />
-                <!-- Reset Button -->
-                <Button text="Reset" onMouseClicked="#onResetRaceButtonClick" styleClass="destructive-button"/>
-
-            </HBox>
+        <!-- Reset Button -->
+        <Button text="Reset" onMouseClicked="#onResetRaceButtonClick" styleClass="destructive-button"/>
 
     </VBox>
 

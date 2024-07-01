@@ -41,14 +41,16 @@ public class TrackMapper implements DTOMapper<TrackJTO, Track>{
                 .map(pointMapper::fromDTO)
                 .toList();
 
+       List<Point> validPositions = dto.getValidPositions().stream()
+                    .map(pointMapper::fromDTO)
+                    .toList();
+
         Point startingPoint = pointMapper.fromDTO(dto.getStartingPoint());
 
         List<Point> allPoints = Stream.concat(innerTrack.stream(), outerTrack.stream())
                 .collect(Collectors.toList());
 
-        Track track = new Track(allPoints);
-        track.setStartingPoint(startingPoint);
-        return track;
+        return new Track(innerTrack, outerTrack, allPoints, validPositions, startingPoint);
     }
 
     /**
@@ -67,8 +69,12 @@ public class TrackMapper implements DTOMapper<TrackJTO, Track>{
                 .map(pointMapper::toDTO)
                 .collect(Collectors.toList());
 
+        List<PointJTO> validPositions = model.getValidPositions().stream()
+                .map(pointMapper::toDTO)
+                .collect(Collectors.toList());
+
         PointJTO startingPoint = pointMapper.toDTO(model.getStartPoint());
 
-        return new TrackJTO(innerTrack, outerTrack, startingPoint);
+        return new TrackJTO(innerTrack, outerTrack, validPositions, startingPoint);
     }
 }

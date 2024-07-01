@@ -8,12 +8,12 @@ import javafx.scene.shape.Line;
 
 import java.util.List;
 
+import static it.unicam.cs.mpmgc.formula1.model.track.Track.TRACK_FACTOR;
+
 /**
  * Class to perform the drawing in the UI of the Track
  */
 public class TrackDrawer implements Drawer<Track> {
-    private static final int TRACK_FACTOR = 2;
-
     /**
      * Method to draw the track in the UI
      *

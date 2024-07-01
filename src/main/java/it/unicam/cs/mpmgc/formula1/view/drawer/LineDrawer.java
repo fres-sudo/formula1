@@ -19,7 +19,7 @@ public class LineDrawer implements Drawer<Point[]> {
     /**
      * Methods that draws in the UI the line, taking starting and ending Points.
      *
-     * @param points items the user want to draw
+     * @param points The two points where the line starts and finish
      * @param pane   the pane where the user want to draw
      */
     @Override

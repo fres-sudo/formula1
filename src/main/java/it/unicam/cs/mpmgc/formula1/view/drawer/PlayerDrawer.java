@@ -18,8 +18,9 @@ import java.util.Map;
  * Class to perform the drawing in the UI of the players
  */
 public class PlayerDrawer {
+
     private final Map<Player, Circle> playerCircle = new HashMap<>();
-    private final Map<Player, List<Point[]>> playerPaths = new HashMap<>();
+    private final Map<Player, List<Point>> playerPaths = new HashMap<>();
     private final LineDrawer lineDrawer;
 
     /**
@@ -28,7 +29,7 @@ public class PlayerDrawer {
      * @param players the list of the players that are currently playing the game
      */
     public PlayerDrawer(List<Player> players) {
-        this.lineDrawer = new LineDrawer(Color.RED); // You can also make this configurable
+        this.lineDrawer = new LineDrawer(Color.RED);
         for (Player player : players) {
             playerPaths.put(player, new ArrayList<>());
             playerCircle.put(player, new Circle(5, player instanceof HumanPlayer ? Color.RED : Color.GREEN));
@@ -56,7 +57,7 @@ public class PlayerDrawer {
     public void updateViewPlayerPosition(Player player, Point lastPosition, Pane pane) {
         Point currentPosition = player.getPosition();
         Point[] linePoints = {lastPosition, currentPosition};
-        playerPaths.get(player).add(linePoints);
+        playerPaths.get(player).add(currentPosition);
         lineDrawer.draw(linePoints, pane);
         moveCircle(player);
     }
@@ -79,6 +80,8 @@ public class PlayerDrawer {
      * Method to reset the paths of the players, used in the GameView
      */
     public void resetViewPlayers() {
-        playerPaths.clear();
+        for(Player player : playerPaths.keySet()) {
+            playerPaths.get(player).clear();
+        }
     }
 }

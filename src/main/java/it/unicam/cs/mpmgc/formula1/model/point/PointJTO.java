@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 public record PointJTO(int x, int y) {
 
-    private static final int AXIS_FACTOR = 10;
+    public static final int AXIS_FACTOR = 10;
 
     /**
      * Method to create an instance of PointJTO from a JSON string.

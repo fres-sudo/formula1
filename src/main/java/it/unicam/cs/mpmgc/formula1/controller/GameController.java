@@ -28,6 +28,8 @@ public class GameController {
     protected Pane gameViewPane;
     @FXML
     protected Label timerLabel;
+    @FXML
+    protected Label stateLabel;
 
     protected TimerController timerController;
     protected MoveController moveController;
@@ -47,18 +49,13 @@ public class GameController {
         for(List<Point> path : paths) {
             players.add(new BotPlayer(startingPoint, path));
         }
-
         GameModel gameModel = new GameModel(track, players);
         GameView gameView = new GameView(gameModel);
 
         timerController = new TimerController(timerLabel);
-        moveController = new MoveController(
-                gameModel,
-                gameView,
-                timerController,
-                unused -> timerController.incrementTime()
-        );
+        moveController = new MoveController(gameModel, gameView, timerController, stateLabel);
 
+        stateLabel.setText(GameState.INIT.getLabel());
         gameViewPane.getChildren().add(gameView);
     }
 
@@ -67,7 +64,7 @@ public class GameController {
      */
     @FXML
     protected void onResetRaceButtonClick() {
-        moveController.resetGame();
+        moveController.resetGame(GameState.RESET);
         timerController.resetTime();
     }
 
@@ -102,3 +99,4 @@ public class GameController {
         }
     }
 }
+

@@ -6,6 +6,8 @@ import it.unicam.cs.mpmgc.formula1.model.player.Player;
 import it.unicam.cs.mpmgc.formula1.model.point.Point;
 import it.unicam.cs.mpmgc.formula1.view.GameView;
 
+import java.util.function.Consumer;
+
 
 /**
  * Describes the movement of a Bot Player
@@ -15,18 +17,20 @@ public class BotMoveController {
     private final GameModel gameModel;
     private final GameView gameView;
     private final TimerController timerController;
+    private final Consumer<GameState> resetGameCallback;
 
     /**
      * Constructor method for BotMoveController to initialize all the actors of the controller.
      *
-     * @param gameModel the instance of the {@link GameModel}
-     * @param gameView the instance of the {@link GameView}
+     * @param gameModel       the instance of the {@link GameModel}
+     * @param gameView        the instance of the {@link GameView}
      * @param timerController the instance of TimerController for finding the position of the bot
      */
-    public BotMoveController(GameModel gameModel, GameView gameView, TimerController timerController) {
+    public BotMoveController(GameModel gameModel, GameView gameView, TimerController timerController, Consumer<GameState> resetGameCallback) {
         this.gameModel = gameModel;
         this.gameView = gameView;
         this.timerController = timerController;
+        this.resetGameCallback = resetGameCallback;
     }
 
     /**
@@ -38,8 +42,12 @@ public class BotMoveController {
             if (player instanceof BotPlayer bot) {
                 Point nextMove = bot.getNextMove(step);
                 if (nextMove != null) {
-                    gameView.updatePlayerPosition(bot, bot.getPath().get(step - 1));
-                    gameModel.setPlayerPosition(bot, nextMove);
+                    if (gameModel.getTrack().isRaceEnded(nextMove)) {
+                        resetGameCallback.accept(GameState.LOST);
+                    } else {
+                        gameView.updatePlayerPosition(bot, bot.getPath().get(step - 1));
+                        gameModel.setPlayerPosition(bot, nextMove);
+                    }
                 }
             }
         }

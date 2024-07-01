@@ -10,11 +10,13 @@ import java.util.List;
 public class TrackJTO {
     private List<PointJTO> innerTrack;
     private List<PointJTO> outerTrack;
+    private List<PointJTO> validPositions;
     private PointJTO startingPoint;
 
-    public TrackJTO(List<PointJTO> innerTrack, List<PointJTO> outerTrack, PointJTO startingPoint) {
+    public TrackJTO(List<PointJTO> innerTrack, List<PointJTO> outerTrack,List<PointJTO> validPositions, PointJTO startingPoint) {
         this.innerTrack = innerTrack;
         this.outerTrack = outerTrack;
+        this.validPositions = validPositions;
         this.startingPoint = startingPoint;
     }
 
@@ -24,6 +26,10 @@ public class TrackJTO {
 
     public List<PointJTO> getOuterTrack() {
         return outerTrack;
+    }
+
+    public List<PointJTO> getValidPositions() {
+        return validPositions;
     }
 
     public PointJTO getStartingPoint() {
@@ -39,9 +45,10 @@ public class TrackJTO {
     public static TrackJTO fromJson(JSONObject jsonObject) {
         List<PointJTO> innerTrack = parsePoints(jsonObject.getJSONArray("inner_track"));
         List<PointJTO> outerTrack = parsePoints(jsonObject.getJSONArray("outer_track"));
+        List<PointJTO> validPositions = parsePoints(jsonObject.getJSONArray("valid_positions"));
         PointJTO startingPoint = PointJTO.fromJson(jsonObject.getJSONObject("starting_point").toString());
 
-        return new TrackJTO(innerTrack, outerTrack, startingPoint);
+        return new TrackJTO(innerTrack, outerTrack, validPositions, startingPoint);
     }
 
     /**

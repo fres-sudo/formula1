@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.unicam.cs.mpmgc.formula1.model.track.Track.TRACK_FACTOR;
+
 /**
  * This class is responsible for parsing a JSON file into a list of lists of Point objects,
  * that represent the path of the bots.
@@ -19,7 +21,6 @@ import java.util.List;
  */
 public class PathParser implements Parser<List<List<Point>>> {
 
-    private static final int TRACK_FACTOR = 2;
     private final PointMapper pointMapper;
 
     /**
@@ -60,7 +61,7 @@ public class PathParser implements Parser<List<List<Point>>> {
         }
 
         for (List<PointJTO> innerListJTO : pathListJTO) { //convert the DTO to real Object
-            List<Point> innerList = new ArrayList<>(); //define the
+            List<Point> innerList = new ArrayList<>();
             for (PointJTO pointJTO : innerListJTO) {
                 Point point = pointMapper.fromDTO(pointJTO); //map the object, from PointJTO to Point
                 innerList.add(new Point(point.x() * TRACK_FACTOR, point.y() * TRACK_FACTOR)); // add the new "scaled" point
