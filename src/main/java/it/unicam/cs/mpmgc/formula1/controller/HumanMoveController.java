@@ -85,7 +85,6 @@ public class HumanMoveController {
         HumanPlayer humanPlayer = (HumanPlayer) gameModel.getPlayers().getFirst();
         Button moveButton = (Button) event.getSource();
         Point newPoint = new Point((int) moveButton.getLayoutX(), (int) moveButton.getLayoutY());
-
         if (gameModel.getTrack().isValidPosition(newPoint)) {
             if (gameModel.getTrack().isRaceEnded(newPoint)) {
                 resetHumanPlayer();

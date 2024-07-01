@@ -42,6 +42,12 @@ public class GameController {
     @FXML
     public void initialize() {
         Track track = loadTrack();
+        System.out.println('"'+ "points" + '"' + ": [");
+        for(Point p : track.getPoints()){
+            System.out.println("{" + '"' + "x" + '"' + ":" + p.x() + ", " + '"' + "y" + '"' + ":"  + p.y() + "},");
+        }
+        System.out.println("]");
+
         List<List<Point>> paths = loadPaths();
         List<Player> players = new ArrayList<>();
         Point startingPoint = track.getStartPoint();
