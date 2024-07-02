@@ -2,17 +2,17 @@ package it.unicam.cs.mpmgc.formula1.view;
 
 import it.unicam.cs.mpmgc.formula1.model.GameModel;
 import it.unicam.cs.mpmgc.formula1.model.player.Player;
-import it.unicam.cs.mpmgc.formula1.view.drawer.PlayerDrawer;
 import it.unicam.cs.mpmgc.formula1.model.point.Point;
 import it.unicam.cs.mpmgc.formula1.model.track.Track;
 import it.unicam.cs.mpmgc.formula1.view.drawer.Drawer;
 import it.unicam.cs.mpmgc.formula1.view.drawer.GridDrawer;
+import it.unicam.cs.mpmgc.formula1.view.drawer.PlayerDrawer;
 import it.unicam.cs.mpmgc.formula1.view.drawer.TrackDrawer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;

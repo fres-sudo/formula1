@@ -6,7 +6,6 @@ import it.unicam.cs.mpmgc.formula1.model.point.Point;
 import it.unicam.cs.mpmgc.formula1.view.GameView;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 
 import java.util.function.Consumer;
 

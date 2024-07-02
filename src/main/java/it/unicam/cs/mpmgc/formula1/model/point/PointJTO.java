@@ -1,4 +1,5 @@
 package it.unicam.cs.mpmgc.formula1.model.point;
+
 import org.json.JSONObject;
 
 

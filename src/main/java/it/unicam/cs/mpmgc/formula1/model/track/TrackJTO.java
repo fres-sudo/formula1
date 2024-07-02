@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrackJTO {
-    private List<PointJTO> innerTrack;
-    private List<PointJTO> outerTrack;
-    private List<PointJTO> validPositions;
-    private PointJTO startingPoint;
+    private final List<PointJTO> innerTrack;
+    private final List<PointJTO> outerTrack;
+    private final List<PointJTO> validPositions;
+    private final PointJTO startingPoint;
 
-    public TrackJTO(List<PointJTO> innerTrack, List<PointJTO> outerTrack,List<PointJTO> validPositions, PointJTO startingPoint) {
+    public TrackJTO(List<PointJTO> innerTrack, List<PointJTO> outerTrack, List<PointJTO> validPositions, PointJTO startingPoint) {
         this.innerTrack = innerTrack;
         this.outerTrack = outerTrack;
         this.validPositions = validPositions;

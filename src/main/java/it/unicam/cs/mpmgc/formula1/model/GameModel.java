@@ -12,13 +12,13 @@ import java.util.Objects;
  */
 public class GameModel {
 
-    private List<Player> players;
-    private Track track;
+    private final List<Player> players;
+    private final Track track;
 
     /**
      * Constructor method to initialize all the necessary parts of a Game
      *
-     * @param track the track of a specific Game
+     * @param track   the track of a specific Game
      * @param players the players of a specific Game
      */
     public GameModel(Track track, List<Player> players) {

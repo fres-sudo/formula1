@@ -1,10 +1,5 @@
 package it.unicam.cs.mpmgc.formula1;
 
-import it.unicam.cs.mpmgc.formula1.controller.GameController;
-import it.unicam.cs.mpmgc.formula1.model.*;
-import it.unicam.cs.mpmgc.formula1.model.mapper.PointMapper;
-import it.unicam.cs.mpmgc.formula1.model.parser.TrackParser;
-import it.unicam.cs.mpmgc.formula1.model.point.Point;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

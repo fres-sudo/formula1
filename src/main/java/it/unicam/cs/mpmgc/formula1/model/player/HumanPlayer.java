@@ -15,6 +15,7 @@ public class HumanPlayer extends Player {
     public void setPosition(Point position) {
         super.setPosition(position);
     }
+
     @Override
     public Point getPosition() {
         return super.getPosition();

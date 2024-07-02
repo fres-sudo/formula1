@@ -40,5 +40,6 @@ enum GameState {
             return "Race Ended, You Reset! 🔄️";
         }
     };
+
     abstract String getLabel();
 }

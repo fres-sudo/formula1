@@ -9,8 +9,8 @@ package it.unicam.cs.mpmgc.formula1.model.mapper;
  */
 public interface DTOMapper<T, K> {
 
-     K fromDTO(T dto);
+    K fromDTO(T dto);
 
-     T toDTO(K dto);
+    T toDTO(K dto);
 
 }

@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static it.unicam.cs.mpmgc.formula1.model.point.PointJTO.AXIS_FACTOR;
+import static it.unicam.cs.mpmgc.formula1.model.track.Track.TRACK_FACTOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TrackParserTest {
@@ -35,14 +37,14 @@ public class TrackParserTest {
 
         Track track = trackParser.parse(tempFile.toString());
 
-        assertEquals(1, track.getInnerTrack().get(0).x());
-        assertEquals(2, track.getInnerTrack().get(0).y());
-        assertEquals(3, track.getOuterTrack().get(0).x());
-        assertEquals(4, track.getOuterTrack().get(0).y());
-        assertEquals(5, track.getValidPositions().get(0).x());
-        assertEquals(6, track.getValidPositions().get(0).y());
-        assertEquals(7, track.getStartPoint().x());
-        assertEquals(8, track.getStartPoint().y());
+        assertEquals(AXIS_FACTOR, track.getInnerTrack().getFirst().x());
+        assertEquals(2 * AXIS_FACTOR, track.getInnerTrack().getFirst().y());
+        assertEquals(3 * AXIS_FACTOR, track.getOuterTrack().getFirst().x());
+        assertEquals(4 * AXIS_FACTOR, track.getOuterTrack().getFirst().y());
+        assertEquals(5 * AXIS_FACTOR, track.getValidPositions().getFirst().x());
+        assertEquals(6 * AXIS_FACTOR, track.getValidPositions().getFirst().y());
+        assertEquals(7 * AXIS_FACTOR, track.getStartPoint().x());
+        assertEquals(8 * AXIS_FACTOR, track.getStartPoint().y());
 
         // Clean up
         Files.delete(tempFile);

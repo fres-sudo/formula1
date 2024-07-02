@@ -2,7 +2,6 @@ package it.unicam.cs.mpmgc.formula1.model.track;
 
 import it.unicam.cs.mpmgc.formula1.model.point.Point;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -72,16 +71,16 @@ public class Track {
 
             validPoint = new Point(validPoint.x() * TRACK_FACTOR, validPoint.y() * TRACK_FACTOR);
 
-            if (point.x() % 10 != 0){ //normalization of X
+            if (point.x() % 10 != 0) { //normalization of X
                 point = new Point(point.x() + 5, point.y());
             }
-            if (point.y() % 10 != 0){ // normalization of Y
+            if (point.y() % 10 != 0) { // normalization of Y
                 point = new Point(point.x(), point.y() + 5);
             }
-            System.out.println("point:" + point + "  validPoint:" + validPoint);
+            System.out.println("point: " + point + "  validPoint: " + validPoint);
 
-            boolean validX = point.x() - TOLERANCE  <= validPoint.x() && point.x() + TOLERANCE  >= validPoint.x();
-            boolean validY = point.y() - TOLERANCE  <= validPoint.y() && point.y() + TOLERANCE  >= validPoint.y();
+            boolean validX = point.x() - TOLERANCE <= validPoint.x() && point.x() + TOLERANCE >= validPoint.x();
+            boolean validY = point.y() - TOLERANCE <= validPoint.y() && point.y() + TOLERANCE >= validPoint.y();
 
             if (validX && validY) {
                 return true;

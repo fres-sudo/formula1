@@ -1,9 +1,9 @@
 package it.unicam.cs.mpmgc.formula1.model.mapper;
 
-import it.unicam.cs.mpmgc.formula1.model.track.Track;
-import it.unicam.cs.mpmgc.formula1.model.track.TrackJTO;
 import it.unicam.cs.mpmgc.formula1.model.point.Point;
 import it.unicam.cs.mpmgc.formula1.model.point.PointJTO;
+import it.unicam.cs.mpmgc.formula1.model.track.Track;
+import it.unicam.cs.mpmgc.formula1.model.track.TrackJTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 /**
  * This class is responsible for mapping between TrackJTO and Track objects.
  */
-public class TrackMapper implements DTOMapper<TrackJTO, Track>{
+public class TrackMapper implements DTOMapper<TrackJTO, Track> {
 
     private final PointMapper pointMapper;
 
@@ -41,9 +41,9 @@ public class TrackMapper implements DTOMapper<TrackJTO, Track>{
                 .map(pointMapper::fromDTO)
                 .toList();
 
-       List<Point> validPositions = dto.getValidPositions().stream()
-                    .map(pointMapper::fromDTO)
-                    .toList();
+        List<Point> validPositions = dto.getValidPositions().stream()
+                .map(pointMapper::fromDTO)
+                .toList();
 
         Point startingPoint = pointMapper.fromDTO(dto.getStartingPoint());
 

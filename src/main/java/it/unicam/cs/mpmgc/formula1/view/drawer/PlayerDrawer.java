@@ -50,9 +50,9 @@ public class PlayerDrawer {
     /**
      * Method to re-draw the Path and the Circle according to the updated player position.
      *
-     * @param player the player the user want to update the position
+     * @param player       the player the user want to update the position
      * @param lastPosition the last known position of the player
-     * @param pane the pane where the player is placed
+     * @param pane         the pane where the player is placed
      */
     public void updateViewPlayerPosition(Player player, Point lastPosition, Pane pane) {
         Point currentPosition = player.getPosition();
@@ -80,7 +80,7 @@ public class PlayerDrawer {
      * Method to reset the paths of the players, used in the GameView
      */
     public void resetViewPlayers() {
-        for(Player player : playerPaths.keySet()) {
+        for (Player player : playerPaths.keySet()) {
             playerPaths.get(player).clear();
         }
     }

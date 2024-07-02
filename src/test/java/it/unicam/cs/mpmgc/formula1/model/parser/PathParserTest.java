@@ -9,6 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import static it.unicam.cs.mpmgc.formula1.model.point.PointJTO.AXIS_FACTOR;
+import static it.unicam.cs.mpmgc.formula1.model.track.Track.TRACK_FACTOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PathParserTest {
@@ -33,10 +35,10 @@ public class PathParserTest {
         String path = tempFile.toAbsolutePath().toString();
         List<List<Point>> pathList = pathParser.parse(path);
 
-        assertEquals(1, pathList.get(0).getFirst().x());
-        assertEquals(2, pathList.get(0).getFirst().y());
-        assertEquals(3, pathList.get(1).getFirst().x());
-        assertEquals(4, pathList.get(1).getFirst().y());
+        assertEquals(AXIS_FACTOR * TRACK_FACTOR, pathList.getFirst().getFirst().x());
+        assertEquals(2 * AXIS_FACTOR * TRACK_FACTOR, pathList.getFirst().getFirst().y());
+        assertEquals(3 * AXIS_FACTOR * TRACK_FACTOR, pathList.get(1).getFirst().x());
+        assertEquals(4 * AXIS_FACTOR * TRACK_FACTOR, pathList.get(1).getFirst().y());
 
         // Clean up
         Files.delete(tempFile);

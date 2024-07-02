@@ -1,7 +1,7 @@
 package it.unicam.cs.mpmgc.formula1.view.drawer;
 
-import it.unicam.cs.mpmgc.formula1.model.track.Track;
 import it.unicam.cs.mpmgc.formula1.model.point.Point;
+import it.unicam.cs.mpmgc.formula1.model.track.Track;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
