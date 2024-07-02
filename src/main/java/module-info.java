@@ -8,8 +8,8 @@ module it.unicam.cs.mpmgc.formulauno {
     requires jdk.jdi;
 
 
-    opens it.unicam.cs.mpmgc.formula1 to javafx.fxml;
-    exports it.unicam.cs.mpmgc.formula1;
-    exports it.unicam.cs.mpmgc.formula1.controller;
-    opens it.unicam.cs.mpmgc.formula1.controller to javafx.fxml;
+    opens it.unicam.cs.oop.formulauno to javafx.fxml;
+    exports it.unicam.cs.oop.formulauno;
+    exports it.unicam.cs.oop.formulauno.controller;
+    opens it.unicam.cs.oop.formulauno.controller to javafx.fxml;
 }
