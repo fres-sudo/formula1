@@ -77,7 +77,6 @@ public class Track {
             if (point.y() % 10 != 0) { // normalization of Y
                 point = new Point(point.x(), point.y() + 5);
             }
-            System.out.println("point: " + point + "  validPoint: " + validPoint);
 
             boolean validX = point.x() - TOLERANCE <= validPoint.x() && point.x() + TOLERANCE >= validPoint.x();
             boolean validY = point.y() - TOLERANCE <= validPoint.y() && point.y() + TOLERANCE >= validPoint.y();

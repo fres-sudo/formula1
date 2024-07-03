@@ -6,7 +6,7 @@ plugins {
     id 'org.beryx.jlink' version '2.25.0'
 }
 
-group 'it.unicam.cs.mpmgc.formulauno'
+group 'it.unicam.cs.oop.formulauno'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -27,8 +27,8 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 application {
-    mainModule = 'it.unicam.cs.mpmgc.formuluno'
-    mainClass = 'it.unicam.cs.mpmgc.formuluno.MainApp'
+    mainModule = 'it.unicam.cs.oop.formulauno'
+    mainClass = 'it.unicam.cs.oop.formulauno.MainApp'
 }
 
 javafx {

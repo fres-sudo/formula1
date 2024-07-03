@@ -18,6 +18,7 @@ import javafx.scene.shape.Circle;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.unicam.cs.oop.formulauno.MainApp.*;
 import static it.unicam.cs.oop.formulauno.model.track.Track.TRACK_FACTOR;
 
 /**
@@ -40,7 +41,7 @@ public class GameView extends Pane {
      * @param gameModel instance of {@link GameModel}
      */
     public GameView(GameModel gameModel) {
-        setPrefSize(800, 800);
+        setPrefSize(GAME_HEIGHT, GAME_WIDTH);
         this.gameModel = gameModel;
         this.playerDrawer = new PlayerDrawer(gameModel.getPlayers());
         this.gridDrawer = new GridDrawer();
@@ -77,10 +78,10 @@ public class GameView extends Pane {
         for (int[] direction : directions) {
             int newX = point.x() + direction[0];
             int newY = point.y() + direction[1];
-            Point newPoint = new Point(newX, newY);
+            Point newPoint = new Point(newX, newY); //center each individual button
             Point startingPoint = new Point(gameModel.getTrack().getStartPoint().x() * TRACK_FACTOR, gameModel.getTrack().getStartPoint().y() * TRACK_FACTOR);
-            if (point.equals(startingPoint)) {
-                newPoint = new Point(newX - point.x() + 5, newY - point.y() - 5);// +/- 5 to center the move button at the beginning of the race
+            if (point.equals(startingPoint)) { //update new point if it is the starting point
+                newPoint = new Point(newX - point.x() + 5, newY - point.y() - 5);// +/- 5 to adjust the move button at the beginning of the race
             }
             Button moveButton = createMoveButton(newPoint, moveHandler);
             moveButtons.add(moveButton);

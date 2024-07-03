@@ -27,11 +27,11 @@
 
 
     <VBox>
-        <Pane fx:id="gameViewPane" styleClass="game-view" prefWidth="800" prefHeight="800"/>
+        <Pane fx:id="gameViewPane" styleClass="game-view"/>
 
         <Region prefHeight="20" />
 
-        <Label fx:id="stateLabel" text="" styleClass="label"/>
+        <Label fx:id="stateLabel" styleClass="label"/>
 
         <Region prefHeight="20" />
 

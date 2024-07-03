@@ -1,4 +1,4 @@
-module it.unicam.cs.mpmgc.formulauno {
+module it.unicam.cs.oop.formulauno {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;

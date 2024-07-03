@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.unicam.cs.oop.formulauno.MainApp.*;
+
 /**
  * This is the core controller of the application, it manages and initialize all the other controllers.
  */
@@ -41,6 +43,8 @@ public class GameController {
      */
     @FXML
     public void initialize() {
+        gameViewPane.setMaxSize(GAME_HEIGHT, GAME_WIDTH);
+
         Track track = loadTrack();
         List<List<Point>> paths = loadPaths();
         List<Player> players = new ArrayList<>();

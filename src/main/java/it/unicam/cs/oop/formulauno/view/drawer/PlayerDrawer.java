@@ -19,9 +19,12 @@ import java.util.Map;
  */
 public class PlayerDrawer {
 
+    private static final Color playerColor =  Color.ORANGERED;
+    private static final Color botColor =  Color.DARKSEAGREEN.darker().desaturate();
+
     private final Map<Player, Circle> playerCircle = new HashMap<>();
     private final Map<Player, List<Point>> playerPaths = new HashMap<>();
-    private final LineDrawer lineDrawer;
+    private final Map<Player, LineDrawer> playerLine = new HashMap<>();
 
     /**
      * Constructor method to define and initialize the paths and the circles and their colors.
@@ -29,10 +32,10 @@ public class PlayerDrawer {
      * @param players the list of the players that are currently playing the game
      */
     public PlayerDrawer(List<Player> players) {
-        this.lineDrawer = new LineDrawer(Color.RED);
         for (Player player : players) {
             playerPaths.put(player, new ArrayList<>());
-            playerCircle.put(player, new Circle(5, player instanceof HumanPlayer ? Color.RED : Color.GREEN));
+            playerLine.put(player, new LineDrawer(player instanceof HumanPlayer ? playerColor : botColor));
+            playerCircle.put(player, new Circle(5, player instanceof HumanPlayer ? playerColor : botColor));
         }
     }
 
@@ -58,7 +61,7 @@ public class PlayerDrawer {
         Point currentPosition = player.getPosition();
         Point[] linePoints = {lastPosition, currentPosition};
         playerPaths.get(player).add(currentPosition);
-        lineDrawer.draw(linePoints, pane);
+        playerLine.get(player).draw(linePoints, pane);
         moveCircle(player);
     }
 

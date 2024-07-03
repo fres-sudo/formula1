@@ -44,7 +44,7 @@ public class HumanMoveController {
     }
 
     /**
-     * Method responsible to notify the View {@link it.unicam.cs.oop.formuluno.view}
+     * Method responsible to notify the View {@link it.unicam.cs.oop.formulauno.view}
      * about player movement for correctly UI update and for draw the new move options
      * to make the player able to perform the next move.
      *

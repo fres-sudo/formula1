@@ -45,8 +45,8 @@ public class BotMoveController {
                     if (gameModel.getTrack().isRaceEnded(nextMove)) {
                         resetGameCallback.accept(GameState.LOST);
                     } else {
-                        gameView.updatePlayerPosition(bot, bot.getPath().get(step - 1));
                         gameModel.setPlayerPosition(bot, nextMove);
+                        gameView.updatePlayerPosition(bot, bot.getPath().get(step - 1));
                     }
                 }
             }
