@@ -78,15 +78,30 @@ public class GameView extends Pane {
         for (int[] direction : directions) {
             int newX = point.x() + direction[0];
             int newY = point.y() + direction[1];
-            Point newPoint = new Point(newX, newY); //center each individual button
-            Point startingPoint = new Point(gameModel.getTrack().getStartPoint().x() * TRACK_FACTOR, gameModel.getTrack().getStartPoint().y() * TRACK_FACTOR);
-            if (point.equals(startingPoint)) { //update new point if it is the starting point
-                newPoint = new Point(newX - point.x() + 5, newY - point.y() - 5);// +/- 5 to adjust the move button at the beginning of the race
-            }
+            Point newPoint = getNewPoint(point, newX, newY);
             Button moveButton = createMoveButton(newPoint, moveHandler);
             moveButtons.add(moveButton);
             getChildren().add(moveButton);
         }
+    }
+
+    /**
+     * Helper method to find the correct position of a single button
+     *
+     * @param point the point where the 9 buttons are centered
+     * @param newX the x factor of the single button
+     * @param newY the y factor of the single button
+     * @return the Point of the new button
+     */
+    private Point getNewPoint(Point point, int newX, int newY) {
+        Point newPoint = new Point(newX, newY);
+        Point startingPoint = new Point(
+                gameModel.getTrack().getStartPoint().x() * TRACK_FACTOR,
+                gameModel.getTrack().getStartPoint().y() * TRACK_FACTOR); //find the starting point
+        if (point.equals(startingPoint)) { //update new point if it is the starting point
+            newPoint = new Point(newX - point.x() + 5, newY - point.y() - 5);// +/- 5 to adjust the move button at the beginning of the race
+        }
+        return newPoint;
     }
 
     /**

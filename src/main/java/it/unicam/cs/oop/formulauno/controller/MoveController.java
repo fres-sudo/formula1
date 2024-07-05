@@ -42,8 +42,8 @@ public class MoveController {
                 gameModel,
                 gameView,
                 (state) -> {
-                    timerController.incrementTime();
-                    stateLabel.setText(state.getLabel());
+                    timerController.incrementTime(); //update the time
+                    stateLabel.setText(state.getLabel()); //update the label in the UI
                 },
                 botMoveController,
                 this::resetGame);

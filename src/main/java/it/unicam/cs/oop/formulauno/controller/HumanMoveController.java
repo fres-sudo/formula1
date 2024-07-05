@@ -2,6 +2,7 @@ package it.unicam.cs.oop.formulauno.controller;
 
 import it.unicam.cs.oop.formulauno.model.GameModel;
 import it.unicam.cs.oop.formulauno.model.player.HumanPlayer;
+import it.unicam.cs.oop.formulauno.model.player.Player;
 import it.unicam.cs.oop.formulauno.model.point.Point;
 import it.unicam.cs.oop.formulauno.view.GameView;
 import javafx.event.ActionEvent;
@@ -22,14 +23,15 @@ public class HumanMoveController {
     private final Consumer<GameState> onMoveCallback;
     private final Consumer<GameState> resetGameCallback;
     private final BotMoveController botMoveController;
-    private Point lastPosition;
+    private Point gap; //variable to keep track of the gap between last position and new position and draw the move option accordingly
 
     /**
      * Constructor method that manages storing the last position and pass variables from higher level.
      *
      * @param gameModel         instance of {@link GameModel}
      * @param gameView          instance of {@link GameView}
-     * @param onMoveCallback    Lambda function to notify and update the {@link TimerController}
+     * @param onMoveCallback    Lambda function to notify and update the {@link GameState} and {@link TimerController}
+     * @param resetGameCallback Lambda function to notify the reset of the game.
      * @param botMoveController instance of BotMoveController since it strictly depends on HumanPlayer movement
      */
     public HumanMoveController(GameModel gameModel, GameView gameView, Consumer<GameState> onMoveCallback, BotMoveController botMoveController, Consumer<GameState> resetGameCallback) {
@@ -37,7 +39,8 @@ public class HumanMoveController {
         this.gameView = gameView;
         this.onMoveCallback = onMoveCallback;
         this.resetGameCallback = resetGameCallback;
-        this.lastPosition = new Point(
+        //the gap at beginning will be 0 for understandable reasons
+        this.gap = new Point(
                 gameModel.getTrack().getStartPoint().x() * TRACK_FACTOR,
                 gameModel.getTrack().getStartPoint().y() * TRACK_FACTOR); // for track scale adaptation
         this.botMoveController = botMoveController;
@@ -53,7 +56,7 @@ public class HumanMoveController {
      */
     public void updatePlayerPosition(HumanPlayer humanPlayer, Point lastPosition) {
         gameView.updatePlayerPosition(humanPlayer, lastPosition);
-        drawMoveOptions(humanPlayer.getPosition());
+        findMoveOptions(humanPlayer.getPosition());
     }
 
     /**
@@ -63,9 +66,10 @@ public class HumanMoveController {
      *
      * @param point the point where human player is moved
      */
-    public void drawMoveOptions(Point point) {
-        int x = lastPosition.x();
-        int y = lastPosition.y();
+    public void findMoveOptions(Point point) {
+
+        int x = gap.x();
+        int y = gap.y();
         int[][] directions = {
                 {x, y}, {x - AXIS_FACTOR, y}, {x + AXIS_FACTOR, y},
                 {x, y - AXIS_FACTOR}, {x, y + AXIS_FACTOR},
@@ -81,33 +85,45 @@ public class HumanMoveController {
      * @param event to retrieve the button where the movement is started
      */
     private void onMoveButtonClick(ActionEvent event) {
-        HumanPlayer humanPlayer = (HumanPlayer) gameModel.getPlayers().getFirst();
+        HumanPlayer humanPlayer = getHumanPlayer();
         Button moveButton = (Button) event.getSource();
-        Point newPoint = new Point((int) moveButton.getLayoutX(), (int) moveButton.getLayoutY());
+        Point newPoint = new Point((int) moveButton.getLayoutX(), (int) moveButton.getLayoutY()); //the point the player decide to move
         if (gameModel.getTrack().isValidPosition(newPoint)) {
             if (gameModel.getTrack().isRaceEnded(newPoint)) {
                 resetHumanPlayer();
-                resetGameCallback.accept(GameState.WIN); //Can't put in resetHumanPLayer method to avoid infinite call stack
+                resetGameCallback.accept(GameState.WIN); //Can't put in "resetHumanPLayer" method to avoid infinite call stack
                 return;
             }
-            int lastX = newPoint.x() - humanPlayer.getPosition().x();
-            int lastY = newPoint.y() - humanPlayer.getPosition().y();
-            Point tmp = new Point(humanPlayer.getPosition().x(), humanPlayer.getPosition().y()); // store the last known position
-            lastPosition = new Point(lastX, lastY); //TODO UNDERSTAND THIS
-            gameModel.setPlayerPosition(humanPlayer, newPoint);
-            updatePlayerPosition(humanPlayer, tmp);
-            onMoveCallback.accept(GameState.PROGRESS);
-            botMoveController.updateBotPosition();
+            gap = new Point(newPoint.x() - humanPlayer.getPosition().x(), newPoint.y() - humanPlayer.getPosition().y());
+            Point lastPosition = humanPlayer.getPosition(); // store the current position of the player before updating it
+            gameModel.setPlayerPosition(humanPlayer, newPoint); //set the new position of the player
+            updatePlayerPosition(humanPlayer, lastPosition); //update the UI
+            onMoveCallback.accept(GameState.PROGRESS); //update the state
+            botMoveController.updateBotPosition(); //update the bots positions
         } else {
             resetGameCallback.accept(GameState.CRASH);
         }
     }
 
     /**
+     * Helper method to retrieve the current Human Player
+     *
+     * @return the current Human Player
+     */
+    private HumanPlayer getHumanPlayer() {
+        for(Player player : gameModel.getPlayers()) {
+            if(player instanceof HumanPlayer humanPlayer) {
+                return humanPlayer;
+            }
+        }
+        return new HumanPlayer(new Point(0,0)); //edge case, will never happen
+    }
+
+    /**
      * Method to reset the human player last known position, and notify the move controller about the restart.
      */
     public void resetHumanPlayer() {
-        lastPosition = new Point(gameModel.getTrack().getStartPoint().x() * TRACK_FACTOR, gameModel.getTrack().getStartPoint().y() * TRACK_FACTOR);
-        drawMoveOptions(lastPosition);
+        gap = new Point(gameModel.getTrack().getStartPoint().x() * TRACK_FACTOR, gameModel.getTrack().getStartPoint().y() * TRACK_FACTOR);
+        findMoveOptions(gap);
     }
 }

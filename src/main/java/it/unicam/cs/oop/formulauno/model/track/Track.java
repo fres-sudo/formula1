@@ -9,6 +9,7 @@ public class Track {
 
     public static final int TRACK_FACTOR = 2;
     private static final int TOLERANCE = 10;
+
     private final List<Point> outerTrack;
     private final List<Point> innerTrack;
     private final List<Point> points;

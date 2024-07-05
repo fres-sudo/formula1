@@ -13,7 +13,7 @@ enum GameState {
     PROGRESS {
         @Override
         String getLabel() {
-            return "Race in progress, FULL GAS 🏎️💨💥";
+            return "Race in progress! FULL GAS 🏎️💨💥";
         }
     },
     LOST {
