@@ -50,7 +50,7 @@ public class PathParser implements Parser<List<List<Point>>> {
         List<List<PointJTO>> pathListJTO = new ArrayList<>();
         List<List<Point>> pathList = new ArrayList<>();
 
-        for (int i = 1; i <= 2; i++) { //iterate over all player
+        for (int i = 1; i <= 3; i++) { //iterate over all player
             JSONArray playerArray = jsonObject.getJSONArray("player" + i);
             List<PointJTO> path = new ArrayList<>();
             for (int j = 0; j < playerArray.length(); j++) { //iterate over the list of points of the given player
