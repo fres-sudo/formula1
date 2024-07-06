@@ -2,7 +2,7 @@ package it.unicam.cs.oop.formulauno.model.mapper;
 
 /**
  * It defines the behaviour of a DTO (Data Transfer Object) Mapper.
- * This interface is used to map Json Object (DTO) to Model.
+ * This interface is used to map Json Object (JTO in this case Json to Object) to Model.
  *
  * @param <T> DTO
  * @param <K> Model
