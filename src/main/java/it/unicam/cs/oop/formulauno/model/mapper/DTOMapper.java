@@ -7,7 +7,7 @@ package it.unicam.cs.oop.formulauno.model.mapper;
  * @param <T> DTO
  * @param <K> Model
  */
-public interface DTOMapper<T, K> {
+public interface DTOMapper<T extends DTO, K> {
 
     K fromDTO(T dto);
 

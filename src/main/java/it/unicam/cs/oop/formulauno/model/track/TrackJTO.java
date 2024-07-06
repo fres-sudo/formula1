@@ -1,5 +1,6 @@
 package it.unicam.cs.oop.formulauno.model.track;
 
+import it.unicam.cs.oop.formulauno.model.mapper.DTO;
 import it.unicam.cs.oop.formulauno.model.point.PointJTO;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -7,7 +8,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrackJTO {
+public class TrackJTO extends DTO {
     private final List<PointJTO> innerTrack;
     private final List<PointJTO> outerTrack;
     private final List<PointJTO> validPositions;
