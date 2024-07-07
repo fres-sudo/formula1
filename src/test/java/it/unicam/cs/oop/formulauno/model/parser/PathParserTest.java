@@ -24,7 +24,8 @@ public class PathParserTest {
         String json = """
         {
             "player1": [{"x": 1, "y": 2}],
-            "player2": [{"x": 3, "y": 4}]
+            "player2": [{"x": 3, "y": 4}],
+            "player3": [{"x": 5, "y": 6}],
         }
         """;
 
@@ -35,10 +36,12 @@ public class PathParserTest {
         String path = tempFile.toAbsolutePath().toString();
         List<List<Point>> pathList = pathParser.parse(path);
 
-        assertEquals(AXIS_FACTOR * TRACK_FACTOR, pathList.getFirst().getFirst().x());
-        assertEquals(2 * AXIS_FACTOR * TRACK_FACTOR, pathList.getFirst().getFirst().y());
+        assertEquals(AXIS_FACTOR * TRACK_FACTOR, pathList.get(0).getFirst().x());
+        assertEquals(2 * AXIS_FACTOR * TRACK_FACTOR, pathList.get(0).getFirst().y());
         assertEquals(3 * AXIS_FACTOR * TRACK_FACTOR, pathList.get(1).getFirst().x());
         assertEquals(4 * AXIS_FACTOR * TRACK_FACTOR, pathList.get(1).getFirst().y());
+        assertEquals(5 * AXIS_FACTOR * TRACK_FACTOR, pathList.get(2).getFirst().x());
+        assertEquals(6 * AXIS_FACTOR * TRACK_FACTOR, pathList.get(2).getFirst().y());
 
         // Clean up
         Files.delete(tempFile);
