@@ -51,7 +51,7 @@ Formula1 is a JavaFx desktop application that allows users to recrate the old [p
 
 
 <!-- ROADMAP -->
-## Roadmap & Usage <a name="roadmap--usage"></a>
+## Examples <a name="examples"></a>
 <img src="src/main/resources/demo1.png" width="500" height="650"/>  <img src="src/main/resources/demo2.png" width="500" height="650"/> 
 
 - [ ] To start a new game just move the player in one of the near 8 buttons available to make it move.
